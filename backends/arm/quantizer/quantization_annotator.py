@@ -12,12 +12,15 @@ import torch
 import torch.fx
 from executorch.backends.arm.quantizer import QuantizationConfig
 from executorch.backends.arm.tosa_utils import get_node_debug_info
-from torch.ao.quantization.quantizer import QuantizationSpecBase, SharedQuantizationSpec
-from torch.ao.quantization.quantizer.utils import (
+from torch.fx import Node
+from torchao.quantization.pt2e.quantizer import (
+    QuantizationSpecBase,
+    SharedQuantizationSpec,
+)
+from torchao.quantization.pt2e.quantizer.utils import (
     _annotate_input_qspec_map,
     _annotate_output_qspec,
 )
-from torch.fx import Node
 
 from .arm_quantizer_utils import (
     is_annotated,

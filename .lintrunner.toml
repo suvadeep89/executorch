@@ -384,24 +384,18 @@ code = "TORCH_AO_IMPORT"
 include_patterns = ["**/*.py"]
 exclude_patterns = [
     "third-party/**",
-    # Some existing files have imports from torch.ao.quantization that are not going away, e.g.,
-    # from torch.ao.quantization.fx.utils, from torch.ao.quantization.qconfig, etc.
-    "backends/xnnpack/test/test_xnnpack_utils.py",
-    "exir/backend/test/demos/test_xnnpack_qnnpack.py",
-    "backends/xnnpack/quantizer/xnnpack_quantizer_utils.py",
-    "backends/xnnpack/test/quantizer/test_pt2e_quantization.py",
-    "backends/xnnpack/test/quantizer/test_xnnpack_quantizer.py",
-    "examples/xnnpack/quantization/example.py",
-    "exir/tests/test_quantization.py",
-    "exir/tests/test_memory_planning.py",
 ]
+
 command = [
   "python3",
   "-m",
   "lintrunner_adapters",
   "run",
   "grep_linter",
-  "--pattern=\\bfrom torch\\.ao\\.quantization(?:\\.[A-Za-z0-9_]+)*\\b",
+  "--pattern=\\bfrom torch\\.ao\\.quantization\\.quantizer(?:\\.[A-Za-z0-9_]+)*\\b",
+  "--pattern=\\bfrom torch\\.ao\\.quantization\\.observer(?:\\.[A-Za-z0-9_]+)*\\b",
+  "--pattern=\\bfrom torch\\.ao\\.quantization\\.quantize_pt2e(?:\\.[A-Za-z0-9_]+)*\\b",
+  "--pattern=\\bfrom torch\\.ao\\.quantization\\.pt2e(?:\\.[A-Za-z0-9_]+)*\\b",
   "--linter-name=TorchAOImport",
   "--error-name=Prohibited torch.ao.quantization import",
   """--error-description=\
